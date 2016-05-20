@@ -1,6 +1,6 @@
 {
   "name": "middleware-proxy",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "author": "Evan Jacobs <evan@yaycmyk.com> (http://yaycmyk.com)",
   "description": "A connect-compliant middleware for simple, transparent redirection of HTTP requests.",
   "repository": "yaycmyk/middleware-proxy",

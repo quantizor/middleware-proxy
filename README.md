@@ -39,7 +39,7 @@ http.createServer(app).listen(app.get('port'), function() {
 });
 ```
 
-This will send all requests starting with `/service` to `http://localhost:8080`.
+This will send all requests starting with `/service` to `http://localhost:8080/service`.
 
 ### using [budo](https://www.npmjs.com/package/budo) (a browserify livereload solution)
 
@@ -66,7 +66,7 @@ require('budo')('index.js', {
 
 ## removing an API prefix
 
-Let's say your integration environment has chosen `/api` as the mount point for communicating with your application's backend APIs. However, you're building your frontend in a separate project and can't easily run a dev server that joins both functionalities. `middleware-proxy` solves this issue by allowing a fifth optional parameter that defines the part of the request URL to be stripped away when proxying the request to your destination host.
+Let's say your integration environment has chosen `/api` as the mount point for communicating with your application's backend APIs. However, you're building your frontend in a separate project and can't easily run a dev server that joins both functionalities. `middleware-proxy` solves this issue by allowing a third optional parameter that defines the part of the request URL to be stripped away when proxying the request to your destination host.
 
 Assuming your remote development API host is at `http://localhost:8080` and has a RESTful collection called `/posts`, you would write your AJAX calls to `GET` from `/api/posts` and use the following configuration:
 
