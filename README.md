@@ -16,7 +16,7 @@ const proxy = require('middleware-proxy');
  *
  * @return {function} middleware, suitable for use in express or connect
  */
-proxy(matcher, server, path_to_strip)`
+proxy('/api/v1', 'http://localhost:8080')`
 ```
 
 ### basic express example
