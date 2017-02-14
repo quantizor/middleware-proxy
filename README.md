@@ -1,5 +1,7 @@
 # middleware-proxy
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/yaycmyk/middleware-proxy.svg)](https://greenkeeper.io/)
+
 This is a simple tool that smooths the difficulties of working on integrated projects where the backend is hosted elsewhere from where you are developing your frontend. The proxy allows you to access your static HTML through a node server and redirect your RESTful calls to the implementing server.
 
 ## usage
