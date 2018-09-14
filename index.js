@@ -22,7 +22,7 @@ module.exports = function(matcher, server, path_to_strip) {
     let { hostname, port, protocol } = url.parse(server);
 
     hostname = hostname || 'localhost';
-    port = port ? parseInt(port, 10) : 80;
+    port = port ? parseInt(port, 10) : null;
     protocol = protocol || 'http://';
 
     /**
@@ -42,9 +42,11 @@ module.exports = function(matcher, server, path_to_strip) {
             return next();
         }
 
+        const portPartial = port ? `:${port}` : '';
+
         const options = {
             headers: {
-                host: `${hostname}:${port}`,
+                host: `${hostname}${portPartial}`,
             },
             method: internal_request.method,
         };
@@ -66,12 +68,12 @@ module.exports = function(matcher, server, path_to_strip) {
         }
 
         options.jar = true; // enables passing of cookies
-        options.url = `${protocol}//${hostname}:${port}${path}`;
+        options.uri = `${protocol}//${hostname}${portPartial}${path}`;
 
-        const external_request = request(options, {
-            followAllRedirects: true,
-            followOriginalHttpMethod: true,
-        });
+        options.followAllRedirects = true;
+        options.followOriginalHttpMethod = true;
+
+        const external_request = request(options);
 
         external_request.on('error', error => console.error(error));
 
