@@ -19,11 +19,7 @@ module.exports = function(matcher, server, path_to_strip) {
         throw new Error('path_to_strip (optional third arg) must be a string');
     }
 
-    let {
-        hostname,
-        port,
-        protocol,
-    } = url.parse(server);
+    let { hostname, port, protocol } = url.parse(server);
 
     hostname = hostname || 'localhost';
     port = port ? parseInt(port, 10) : 80;
@@ -39,7 +35,7 @@ module.exports = function(matcher, server, path_to_strip) {
      *
      * @return {void}
      */
-    return function (internal_request, internal_response, next) {
+    return function(internal_request, internal_response, next) {
         if (typeof matcher === 'string' && internal_request.url.indexOf(matcher) !== 0) {
             return next();
         } else if (matcher instanceof RegExp && !internal_request.url.match(matcher)) {
@@ -72,7 +68,10 @@ module.exports = function(matcher, server, path_to_strip) {
         options.jar = true; // enables passing of cookies
         options.url = `${protocol}//${hostname}:${port}${path}`;
 
-        const external_request = request(options);
+        const external_request = request(options, {
+            followAllRedirects: true,
+            followOriginalHttpMethod: true,
+        });
 
         external_request.on('error', error => console.error(error));
 
@@ -83,7 +82,7 @@ module.exports = function(matcher, server, path_to_strip) {
             // must be stripped so they will work as expected
 
             if (headers['set-cookie']) {
-                headers['set-cookie'] = headers['set-cookie'].map(cookie => cookie.replace(/; ?domain=[^;]*/ig, ''));
+                headers['set-cookie'] = headers['set-cookie'].map(cookie => cookie.replace(/; ?domain=[^;]*/gi, ''));
             }
 
             // pipe the response from the proxied request into the original response object the client will receive
@@ -96,5 +95,5 @@ module.exports = function(matcher, server, path_to_strip) {
 
         // pipe the data from the incoming request to the outgoing proxied request
         internal_request.pipe(external_request);
-    }
+    };
 };
