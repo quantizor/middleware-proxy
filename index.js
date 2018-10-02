@@ -24,6 +24,8 @@ module.exports = function(matcher, server, path_to_strip) {
   hostname = hostname || 'localhost';
   port = port ? parseInt(port, 10) : null;
   protocol = protocol || 'http://';
+  search = search || '';
+  hash = hash || '';
 
   /**
    * generated middleware
