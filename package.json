@@ -1,6 +1,6 @@
 {
   "name": "middleware-proxy",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "author": "Evan Jacobs <probablyup@gmail.com> (https://probablyup.com)",
   "description": "A connect-compliant middleware for simple, transparent redirection of HTTP requests.",
   "repository": "probablyup/middleware-proxy",
